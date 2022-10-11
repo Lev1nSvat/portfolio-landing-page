@@ -47,15 +47,6 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <>
-      <Head>
-        <title>Title</title>
-        <link rel="icon" href="/favicon-32x32.png" />
-        <link rel="icon" href="/favicon-16x16.png" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link rel="manifest" href="/site.webmanifest" />
-        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
-        <meta name="theme-color" content="#ffffff" />
-      </Head>
       <div className='invisible' ref={el} data-scroll-container>
         <Component {...pageProps} el={el} q={q} scrollIsLoaded={scrollIsLoaded} />
       </div>
