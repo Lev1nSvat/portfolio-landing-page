@@ -47,6 +47,7 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <>
+      <div id='scrollBlock' className='w-full h-[100vw] absolute z-10'></div>
       <div className='invisible' ref={el} data-scroll-container>
         <Component {...pageProps} el={el} q={q} scrollIsLoaded={scrollIsLoaded} />
       </div>

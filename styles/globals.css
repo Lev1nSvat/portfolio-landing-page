@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@layer utilities {
+  .text-border {
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #FEE3EC;
+  }
+  .font-regular {
+    font-family: 'Font-regular';
+  }
+  .bg-gr {
+    background: linear-gradient(to right, #222222 100%, #FEE3EC 0%);
+  }
+  @font-face{
+    font-family: 'Font-regular';
+    src: url("../public/cocogoose-pro.regular.ttf");
+  }
+}
