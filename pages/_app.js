@@ -14,16 +14,18 @@ function MyApp({ Component, pageProps }) {
   const q = gsap.utils.selector(el);
   const router = useRouter()
   const [scrollIsLoaded, setScrollIsLoaded] = useState();
+  const [locoScroll, setLocoScroll] = useState()
   useEffect(() => {
-
-      let locoScroll;
+    
       import("locomotive-scroll").then((locomotiveModule) => {
-          locoScroll = new locomotiveModule.default({
+          const locoScroll = new locomotiveModule.default({
             el: document.querySelector("[data-scroll-container]"),
             smooth: true,
             smoothMobile: false,
-            resetNativeScroll: true
+            resetNativeScroll: true,
+            gestureDirection: "both"
           });
+          setLocoScroll(locoScroll)
           locoScroll.on("scroll", ScrollTrigger.update);
           ScrollTrigger.scrollerProxy("[data-scroll-container]", {
             scrollTop(value) {
@@ -35,9 +37,12 @@ function MyApp({ Component, pageProps }) {
             pinType: document.querySelector("[data-scroll-container]").style.transform ? "transform" : "fixed"
           });
           ScrollTrigger.addEventListener("refresh", () => locoScroll.update());
+          window.addEventListener("resize", () => {locoScroll.scrollTo("top", {duration:0, disableLerp:true})})
           ScrollTrigger.defaults({ scroller: "[data-scroll-container]" });
           setScrollIsLoaded(true);
           gsap.set(el.current, {visibility: "inherit"})
+      
+
 
       });
       const handleRouteChange = () => scroll.destroy();
@@ -48,8 +53,8 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <div id='scrollBlock' className='w-full h-[100vw] absolute z-10'></div>
-      <div className='invisible' ref={el} data-scroll-container>
-        <Component {...pageProps} el={el} q={q} scrollIsLoaded={scrollIsLoaded} />
+      <div className='invisible overflow-x-hidden' ref={el} data-scroll-container>
+        <Component {...pageProps} el={el} q={q} scrollIsLoaded={scrollIsLoaded} locoScroll={locoScroll}/>
       </div>
     </>
   )

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Paytone+One&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,13 +8,24 @@
     -webkit-text-stroke-color: #FEE3EC;
   }
   .font-regular {
-    font-family: 'Font-regular';
+    font-family: 'Paytone One', sans-serif;
   }
   .bg-gr {
     background: linear-gradient(to right, #222222 100%, #FEE3EC 0%);
+  }
+  .text-gr {
+    background: #222222;
+    background-image: linear-gradient(to right, #222222 0%, #FEE3EC 0%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 1px #222222;
+    transition: all 500ms ease-out;
+
   }
   @font-face{
     font-family: 'Font-regular';
     src: url("../public/cocogoose-pro.regular.ttf");
   }
+
 }
