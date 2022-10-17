@@ -42,8 +42,8 @@ export default function Home({el, q, scrollIsLoaded, locoScroll}) {
       const main = gsap.timeline({scrollTrigger: {scrub:true, start:"top bottom", end:"bottom top", trigger:q('#main')}})
       main.to(q('#image'), {y:"+=250vh", ease:"none"})
 
-      const main2 = gsap.timeline({scrollTrigger: {scrub:true, start:"top bottom", end:"top top", trigger:q('#main2')}})
-      main2.to(q('#about'), {y: "+=200vh",ease:"none"})
+      const main2 = gsap.timeline({scrollTrigger: {scrub:true, start:"top bottom", end:"bottom bottom", trigger:q('#main2')}})
+      main2.to(q('#about'), {y: "+=102vw",ease:"none"})
 
       gsap.to(q('#link1'), {backgroundImage: "linear-gradient(to right, #222222 0%, #FEE3EC 0%)"})
       gsap.utils.toArray(q('.projects')).forEach(a => {
@@ -53,6 +53,9 @@ export default function Home({el, q, scrollIsLoaded, locoScroll}) {
       });
       gsap.utils.toArray(q('.skewElem')).forEach(el => {
         gsap.set(el, {transformOrigin: "left center"})
+      })  
+      gsap.utils.toArray(q('.reveal')).forEach(el => {
+        let reveal = gsap.from(el, {y: "+=400", scrollTrigger:{start:"-=400 bottom",end:"0", trigger:el, toggleActions:"play none none reset"}, duration:1.2})
       })  
       locoScroll.on("scroll", (obj) => {
         scroll.current.current = obj.scroll.y;
@@ -133,8 +136,13 @@ export default function Home({el, q, scrollIsLoaded, locoScroll}) {
           />
         </div>
       </div>
-      <div id="main2" className="relative z-30 h-[100vh] bg-shark-500 overflow-hidden">
+      <div id="main2" className="relative z-30 h-[150vh] bg-shark-500 overflow-hidden">
         <p id="about" className="text-[30vw] origin-top-left -rotate-90 w-fit absolute   font-regular text-carousel-pink-500">About</p>
+        <div className="w-[75vw] ml-[30vw] text-5xl py-[30vh] skewElem px-[10vw] text-carousel-pink-500">
+          <p className="reveal py-12" >Hi, I'm Sviatoslav Monakhov, Interactive UI/UX developer.</p>
+          <p className="reveal py-12" >I'm currently offerring my expertise to agencies and creative teams.</p>
+          <p className="reveal py-12" >My love for challenge, makes me seek it in my work every day. Achieving today what wasn't possible for me yestarday is my passion. I hope I will find a team which will provide great oportunity to do so.</p>
+        </div>
       </div>
       
 
