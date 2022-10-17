@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/scrolltrigger';
 import { CSSPlugin } from "gsap"
@@ -10,6 +10,10 @@ import Image from "next/image";
 import ram from '/./public/ram.jpg';
 
 export default function Home({el, q, scrollIsLoaded, locoScroll}) {
+  const scroll = useRef({
+    cache: 0,
+    current: 0,
+  });
   useEffect(() => {
     if(scrollIsLoaded) {
       const loading = gsap.timeline()
@@ -33,14 +37,32 @@ export default function Home({el, q, scrollIsLoaded, locoScroll}) {
       intro.set(q(".dev"), { display: "block"}, "<")
       
       const paralax = gsap.timeline({scrollTrigger: {scrub: true, start: "top bottom", end: "bottom top", trigger: q('#main')}});
-      paralax.to(q('#intro'), {y: "+=1000", ease: "none"})
+      paralax.to(q('#dev'), {y: "+=1100", ease: "none"})
       
+      const main = gsap.timeline({scrollTrigger: {scrub:true, start:"top bottom", end:"bottom top", trigger:q('#main')}})
+      main.to(q('#image'), {y:"+=250vh", ease:"none"})
+
+      const main2 = gsap.timeline({scrollTrigger: {scrub:true, start:"top bottom", end:"top top", trigger:q('#main2')}})
+      main2.to(q('#about'), {y: "+=200vh",ease:"none"})
+
       gsap.to(q('#link1'), {backgroundImage: "linear-gradient(to right, #222222 0%, #FEE3EC 0%)"})
       gsap.utils.toArray(q('.projects')).forEach(a => {
         let hover = gsap.to(a, {backgroundImage: "linear-gradient(to right, #222222 100%, #FEE3EC 100%)", paused: true, ease: "power2"});
         a.addEventListener("mouseenter", () => hover.play());
         a.addEventListener("mouseleave", () => hover.reverse());
       });
+      gsap.utils.toArray(q('.skewElem')).forEach(el => {
+        gsap.set(el, {transformOrigin: "left center"})
+      })  
+      locoScroll.on("scroll", (obj) => {
+        scroll.current.current = obj.scroll.y;
+        let distance = scroll.current.current - scroll.current.cache;
+        scroll.current.cache = scroll.current.current;
+        gsap.utils.toArray(q('.skewElem')).forEach(el => {
+          gsap.to(el, {skewY: distance*0.3})
+        })      
+      });
+      gsap.set("body", {backgroundColor:"#222222"})
       ScrollTrigger.refresh()    
     }
   }, [scrollIsLoaded])
@@ -50,7 +72,7 @@ export default function Home({el, q, scrollIsLoaded, locoScroll}) {
       <Head>
         <title>Sviatoslav M. | Interactive Developer</title>
       </Head>
-      <div id="intro" className="skewElem font-regular min-h-[100vh] bg-shark-500 bg-gr flex justify-center items-center">
+      <div id="intro" className=" font-regular min-h-[100vh] bg-shark-500 bg-gr flex justify-center items-center">
         <svg className="h-[100vh] w-[100vw] flex justify-center items-center" fill="none" xmlns="http://www.w3.org/2000/svg">
           <mask id="mask">
             <text id="Sviatoslav" className="text-[16vw] font-regular" fill="white" stroke="#FEE3EC">
@@ -76,25 +98,43 @@ export default function Home({el, q, scrollIsLoaded, locoScroll}) {
         <p id="surname" className="absolute text-[16vw] text-carousel-pink-500 ">Monakhov</p>
         <p id="scroll" className="text-carousel-pink-500 text-[2vw] absolute translate-y-[40vh]">scroll</p>
       </div>
-      <div id="main" className="bg-carousel-pink-500 font-regular z-10 relative min-h-[100vh] flex justify-between">
-        <div className=" pl-32 pt-16 text-8xl">
-          <p className="h-32 my-12 projects text-gr w-fit">
+      <div id="main" className="bg-carousel-pink-500 font-regular -z-10 relative min-h-[250vh] flex justify-between items-center">
+        <div className="skewElem z-20 absolute pl-32 mt-16 text-8xl">
+          
+          <p className=" my-56  h-32 projects text-gr w-fit">
             <Link href={"/"}>
               <a className="">Project1</a>
             </Link>
           </p>
-          <p className="h-32 my-12 projects text-gr w-fit ">
+          <p className=" my-56 h-32 projects text-gr w-fit ">
             <Link href={"/"}><a className="">Project1</a></Link>
           </p>
-          <p className="h-32 my-12 projects text-gr w-fit ">
+          <p className=" my-56 h-32 projects text-gr w-fit ">
             <Link href={"/"}><a className="">Project1</a></Link>
           </p>
         </div>
-        <div className="my-[10%] mx-[10%] w-[80%]">
+        <div className="skewElemSlow opacity-20 pl-32 mt-16 text-8xl">
+          
+          <p className=" my-56  h-32 projects text-gr w-fit">
+            <Link href={"/"}>
+              <a className="">Project1</a>
+            </Link>
+          </p>
+          <p className=" my-56 h-32 projects text-gr w-fit ">
+            <Link href={"/"}><a className="">Project1</a></Link>
+          </p>
+          <p className=" my-56 h-32 projects text-gr w-fit ">
+            <Link href={"/"}><a className="">Project1</a></Link>
+          </p>
+        </div>
+        <div id="image" className="self-start -translate-y-[50vh] my-[10%] mx-[10%] w-[80%]">
           <Image 
             src={ram}  
           />
         </div>
+      </div>
+      <div id="main2" className="relative z-30 h-[100vh] bg-shark-500 overflow-hidden">
+        <p id="about" className="text-[30vw] origin-top-left -rotate-90 w-fit absolute   font-regular text-carousel-pink-500">About</p>
       </div>
       
 
