@@ -21,9 +21,12 @@ function MyApp({ Component, pageProps }) {
           const locoScroll = new locomotiveModule.default({
             el: document.querySelector("[data-scroll-container]"),
             smooth: true,
-            smoothMobile: false,
-            resetNativeScroll: true,
-            gestureDirection: "both"
+            smartphone:{
+              smooth:true
+            },
+            tablet:{
+              smooth:true
+            }
           });
           setLocoScroll(locoScroll)
           locoScroll.on("scroll", ScrollTrigger.update);
