@@ -43,7 +43,6 @@ function MyApp({ Component, pageProps }) {
           window.addEventListener("resize", () => {locoScroll.scrollTo("top", {duration:0, disableLerp:true})})
           ScrollTrigger.defaults({ scroller: "[data-scroll-container]" });
           setScrollIsLoaded(true);
-          gsap.set(el.current, {visibility: "inherit"})
       
 
 
@@ -56,7 +55,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <div id='scrollBlock' className='w-full h-[100vw] absolute z-10'></div>
-      <div className='invisible overflow-x-hidden' ref={el} data-scroll-container>
+      <div className='opacity-0 overflow-x-hidden' ref={el} data-scroll-container>
         <Component {...pageProps} el={el} q={q} scrollIsLoaded={scrollIsLoaded} locoScroll={locoScroll}/>
       </div>
     </>

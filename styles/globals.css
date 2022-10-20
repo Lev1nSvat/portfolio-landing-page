@@ -3,6 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 @layer utilities {
+
   .text-border {
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: #FEE3EC;
@@ -22,30 +23,7 @@
     -webkit-text-stroke: 1px #222222;
     transition: all 500ms ease-out;
   }
-  html body #magicPointer {
-    background-color: #FEE3EC;
-    mix-blend-mode: difference;
-    height: 10px;
-    width: 10px;
-    border: 5px solid #FEE3EC;
-  }
-  .pointer-overlay {
-    height: 80px !important;
-    width: 80px !important;
-  }
-  html body #magicMouseCursor {
-    position: fixed;
-    width: 35px;
-    height: 35px;
-    border: 2px solid #222222 ;
-    outline: 2px solid #FEE3EC;
-    border-radius: 50%;
-    z-index: 9999;
-    left: 0;
-    top: 0;
-    transition: transform 0.07s, width 0.3s, height 0.3s;
-    pointer-events: none;
-  }
+  
   @font-face{
     font-family: 'Font-regular';
     src: url("../public/cocogoose-pro.regular.ttf");
