@@ -12,6 +12,7 @@
     "autoprefixer": "^10.4.12",
     "gsap": "^3.11.2",
     "locomotive-scroll": "^4.1.4",
+    "magicmouse.js": "^1.2.1",
     "next": "12.3.1",
     "postcss": "^8.4.16",
     "react": "18.2.0",
