@@ -1,10 +1,10 @@
-import '../styles/globals.css'
 import '../styles/locomotive-scroll.css'
 import React, { useEffect, useRef, useState } from 'react';
 import { useRouter} from 'next/router';
 import Head from 'next/head';
 import gsap from 'gsap';
 import {ScrollTrigger} from 'gsap/dist/scrolltrigger';
+import '../styles/globals.css'
 gsap.registerPlugin(ScrollTrigger)
 
 
@@ -16,7 +16,7 @@ function MyApp({ Component, pageProps }) {
   const [scrollIsLoaded, setScrollIsLoaded] = useState();
   const [locoScroll, setLocoScroll] = useState()
   useEffect(() => {
-    
+        
       import("locomotive-scroll").then((locomotiveModule) => {
           const locoScroll = new locomotiveModule.default({
             el: document.querySelector("[data-scroll-container]"),
@@ -48,7 +48,7 @@ function MyApp({ Component, pageProps }) {
 
 
       });
-      const handleRouteChange = () => scroll.destroy();
+      const handleRouteChange = () => locoScroll.destroy();
       router.events.on('routeChangeStart', handleRouteChange)
       
   }, []);
